@@ -9,15 +9,12 @@ def index():
 @app.route("/user")
 def user():
     data = {"title": "Usuario"}
-    return render_template('form_view.html')
+    return render_template('user.html')
+
+@app.route("/employee")
+def employee():
+    return render_template('employee.html')
 
 @app.route("/employee-report")
-def employee():
-    data = {"title": "Empleados"}
-    return f"<p>Hello, employee!</p>"
-
-@app.route("/reports")
-@app.route("/reports/<int:id>")
-def report(id):
-    data = {"title": "Reportes"}
-    return f"<p>Hello, report {id}!</p>"
+def report():
+    return render_template('employee-report.html')

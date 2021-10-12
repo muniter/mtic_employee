@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <form id="user" method="post">
+    <div class="modal-header">
+      <h5 class="modal-title">Editar Usuario</h5>
+      <button type="button" class="close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Nombre" type="text" name="name">
+        </div>
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Login" type="text" name="login">
+        </div>
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Contraseña" type="text" name="password">
+        </div>
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Grupo" type="text" name="group">
+        </div>
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Rol" type="text" name="rol">
+        </div>
+        <div class="col mb-3">
+          <input class="form-control" placeholder="Tipo de Usuario" type="text" name="type">
+        </div>
+        <div class="col-5 mb-3">
+          <input class="form-control" placeholder="Último Ingreso" type="date" name="last_seen">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="commit" id="reset2" value="Guardar" class="btn btn-primary">
+      </div>
+  </form>
+    </div>
+    {% endblock %}
