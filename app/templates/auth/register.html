@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Register{% endblock %} {% block content %}
+<main class="page-center">
+    <article class="sign-up">
+        <h1 class="sign-up__title">Get started</h1>
+        <p class="sign-up__subtitle">Start creating the best possible user experience for you customers</p>
+        <form class="sign-up-form form" action="" method="">
+            {{ form.csrf_token() }}
+            <div class="form-label-wrapper">
+                {{ form.email.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.email (class="form-input", type="email", placeholder="Enter your email")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.username.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.username (class="form-input", type="username", placeholder="Enter your username")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.first_name.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.first_name (class="form-input", type="first_name", placeholder="Enter your first_name")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.last_name.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.last_name (class="form-input", type="last_name", placeholder="Enter your last_name")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.password.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.password (class="form-input", type="password", placeholder="Enter your password")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.confirm_password.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.confirm_password (class="form-input", type="password", placeholder="confirm your password")}}
+            </div>
+            <label class="form-checkbox-wrapper">
+              <input class="form-checkbox" type="checkbox">
+              <span class="form-checkbox-label">Remember me next time</span>
+            <div>
+              {{ form.submit(class="form-btn primary-default-btn transparent-btn")}}
+            </div>
+        </form>
+    </article>
+</main>
+{% endblock %}

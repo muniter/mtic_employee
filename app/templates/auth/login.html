@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
+<div class="content-section">
+    <br/> {{ utils.flashed_messages() }}
+    <br/>
+    <h1><span>dele</span>prueba</h1>
+    <font face="univers" size="6" color="red">
+        <h1>tipo Univers</h1>
+    </font>
+    <div class="center">
+        <h1>Login to your account</h1>
+        <h1> prueba</h1>
+        <br/> {{ wtf.quick_form(form) }}
+    </div>
+</div>
+{% endblock %}

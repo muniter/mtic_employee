@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, url_for
 from flask_login import login_required, login_user, logout_user
 
 from . import auth
-from forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm
 from .. import db
 from ..models import Employee
 
@@ -33,7 +33,7 @@ def register():
     return render_template('auth/register.html', form=form, title='Register')
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
 def login():
     """
     Handle requests to the /login route
@@ -58,7 +58,7 @@ def login():
             flash('Invalid email or password.')
 
     # load login template
-    return render_template('auth/login.html', form=form, title='Login')
+    return render_template('home/index.html', form=form, title='Login')
 
 
 @auth.route('/logout')

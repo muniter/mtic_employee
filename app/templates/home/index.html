@@ -1,50 +1,33 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
-                                        </div>
-                                    </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
-
-                                </form>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% extends "base.html" %} {% block title %}login{% endblock %} {% block content %}
+<div class="layer"></div>
+<main class="page-center">
+    <article class="sign-up">
+        <h1 class="sign-up__title">Welcome back!</h1>
+        <p class="sign-up__subtitle">Sign in to your account to continue</p>
+        <form class="sign-up-form form" action="" method="">
+            {{ form.csrf_token() }}
+            <div class="form-label-wrapper">
+                {{ form.username.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.username (class="form-input", type="username", placeholder="Enter your username")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.password.label (class="form-label")}}
+            </div>
+            <div class="form-label-wrapper">
+                {{ form.password (class="form-input", type="password", placeholder="Enter your password")}}
+            </div>
+            <a class="link-info forget-link" href="##">Forgot your password?</a>
+            <label class="form-checkbox-wrapper">
+                <input class="form-checkbox" type="checkbox">
+                <span class="form-checkbox-label">Remember me next time</span>
+            </label>
+            <div>
+                {{ form.submit(class="form-btn primary-default-btn transparent-btn")}}
             </div>
 
-        </div>
-
-    </div>
-
-</div>
+        </form>
+    </article>
+</main>
 {% endblock %}
