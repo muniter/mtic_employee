@@ -26,10 +26,10 @@ def create_app(config_name):
     
     db.init_app(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/employee.db'    
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-    login_manager.init_app(app)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True    
     login_manager.login_message = "You must be logged in to access this page."
     login_manager.login_view = "auth.login"
+    login_manager.init_app(app)
     migrate = Migrate(app, db)
 
     # from .admin import admin as admin_blueprint

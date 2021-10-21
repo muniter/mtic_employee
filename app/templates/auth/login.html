@@ -3,7 +3,14 @@
     <article class="sign-up">
         <h1 class="sign-up__title">Welcome back!</h1>
         <p class="sign-up__subtitle">Sign in to your account to continue</p>
-        <form class="sign-up-form form" method="post" action="">
+        <div>
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ messages[0] }}
+            </div>
+            {% endif %} {% endwith %}
+        </div>
+        <form class="sign-up-form form" method="post" action="/login">
             {{ form.hidden_tag() }} {{ form.csrf_token() }}
             <div class="form-label-wrapper">
                 {{ form.username.label (class="form-label")}}

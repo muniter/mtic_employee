@@ -38,17 +38,16 @@ def login():
     Handle requests to the /login route
     Log an employee in through the login form
     """
-    error = None
     form = LoginForm()
     if form.validate_on_submit():
         # check whether employee exists in the database and whether
         # the password entered matches the password in the database
-        # employee = Employee.query.filter_by(username=form.username.data).first()
-        # if employee is not None and employee.verify_password(
-        #         form.password.data):
-        #     # log employee in
-        #     login_user(employee)
-        if form.username.data == 'master' and form.password.data == 'Mision2021':
+        employee = Employee.query.filter_by(username=form.username.data).first()
+        if employee is not None and employee.verify_password(
+                form.password.data):
+            # log employee in
+            login_user(employee)
+        # if form.username.data == 'master' and form.password.data == 'Mision2021':
 
             # redirect to the dashboard page after login
             flash('You were successfully logged in')
@@ -56,7 +55,7 @@ def login():
 
         # # when login details are incorrect
         else:
-            error = 'Invalid username or password.'
+            flash('Invalid username or password.')
 
     # load login template
     return render_template('auth/login.html', form=form, title='Login')

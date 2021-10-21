@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/auth/views.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1634825000721,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634825504266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,8 +55,9 @@\n \r\n         # # when login details are incorrect\r\n         else:\r\n             flash('Invalid username or password.')\r\n+            return redirect(url_for('auth.login'))\r\n \r\n     # load login template\r\n     return render_template('auth/login.html', form=form, title='Login')\r\n \r\n"
+                },
+                {
+                    "date": 1634825535895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,8 @@\n \r\n         # # when login details are incorrect\r\n         else:\r\n             flash('Invalid username or password.')\r\n-            return redirect(url_for('auth.login'))\r\n \r\n     # load login template\r\n     return render_template('auth/login.html', form=form, title='Login')\r\n \r\n"
+                },
+                {
+                    "date": 1634826593810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,14 @@\n     form = LoginForm()\r\n     if form.validate_on_submit():\r\n         # check whether employee exists in the database and whether\r\n         # the password entered matches the password in the database\r\n-        # employee = Employee.query.filter_by(username=form.username.data).first()\r\n-        # if employee is not None and employee.verify_password(\r\n-        #         form.password.data):\r\n-        #     # log employee in\r\n-        #     login_user(employee)\r\n-        if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n+        employee = Employee.query.filter_by(username=form.username.data).first()\r\n+        if employee is not None and employee.verify_password(\r\n+                form.password.data):\r\n+            # log employee in\r\n+            login_user(employee)\r\n+        # if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n \r\n             # redirect to the dashboard page after login\r\n             flash('You were successfully logged in')\r\n             return redirect(url_for('home.dashboard'))\r\n"
+                }
+            ],
+            "date": 1634825000721,
+            "name": "Commit-0",
+            "content": "from flask import flash, redirect, render_template, url_for\r\nfrom flask_login import login_required, login_user, logout_user\r\n\r\nfrom . import auth\r\nfrom .forms import LoginForm, RegistrationForm\r\nfrom .. import db\r\nfrom ..models import Employee\r\n\r\n\r\n@auth.route('/register', methods=['GET', 'POST'])\r\ndef register():\r\n    \"\"\"\r\n    Handle requests to the /register route\r\n    Add an employee to the database through the registration form\r\n    \"\"\"\r\n    form = RegistrationForm()\r\n    if form.validate_on_submit():\r\n        employee = Employee(email=form.email.data,\r\n                            username=form.username.data,\r\n                            first_name=form.first_name.data,\r\n                            last_name=form.last_name.data,\r\n                            password=form.password.data)\r\n\r\n        # add employee to the database\r\n        db.session.add(employee)\r\n        db.session.commit()\r\n        flash('You have successfully registered! You may now login.')\r\n\r\n        # redirect to the login page\r\n        return redirect(url_for('auth.login'))\r\n\r\n    # load registration template\r\n    return render_template('auth/register.html', form=form, title='Register')\r\n\r\n@auth.route('/login', methods=['GET', 'POST'])\r\ndef login():\r\n    \"\"\"\r\n    Handle requests to the /login route\r\n    Log an employee in through the login form\r\n    \"\"\"\r\n    form = LoginForm()\r\n    if form.validate_on_submit():\r\n        # check whether employee exists in the database and whether\r\n        # the password entered matches the password in the database\r\n        # employee = Employee.query.filter_by(username=form.username.data).first()\r\n        # if employee is not None and employee.verify_password(\r\n        #         form.password.data):\r\n        #     # log employee in\r\n        #     login_user(employee)\r\n        if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n\r\n            # redirect to the dashboard page after login\r\n            flash('You were successfully logged in')\r\n            return redirect(url_for('home.dashboard'))\r\n\r\n        # # when login details are incorrect\r\n        else:\r\n            flash('Invalid username or password.')\r\n\r\n    # load login template\r\n    return render_template('auth/login.html', form=form, title='Login')\r\n\r\n\r\n@auth.route('/logout')\r\n@login_required\r\ndef logout():\r\n    \"\"\"\r\n    Handle requests to the /logout route\r\n    Log an employee out through the logout link\r\n    \"\"\"\r\n    logout_user()\r\n    flash('You have successfully been logged out.')\r\n\r\n    # redirect to the login page\r\n    return redirect(url_for('auth.login'))\r\n"
+        }
+    ]
+}
