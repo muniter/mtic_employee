@@ -11,5 +11,5 @@ app = create_app(config_name)
 if __name__ == '__main__':
     #SECRET_KEY = 'the random string'
     CsrfProtect(app)
-    app.run()
+    app.run(debug=True)
   
