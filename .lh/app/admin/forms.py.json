@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/admin/forms.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1634868627655,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634870572876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,34 @@\n \r\n from flask_wtf import FlaskForm\r\n from wtforms import StringField, SubmitField\r\n from wtforms.validators import DataRequired\r\n+from wtforms.ext.sqlalchemy.fields import QuerySelectField\r\n \r\n+from ..models import Department, Role\r\n+\r\n class DepartmentForm(FlaskForm):\r\n     \"\"\"\r\n     Form for admin to add or edit a department\r\n     \"\"\"\r\n     name = StringField('Name', validators=[DataRequired()])\r\n     description = StringField('Description', validators=[DataRequired()])\r\n+    submit = SubmitField('Submit')\r\n+\r\n+\r\n+class RoleForm(FlaskForm):\r\n+    \"\"\"\r\n+    Form for admin to add or edit a role\r\n+    \"\"\"\r\n+    name = StringField('Name', validators=[DataRequired()])\r\n+    description = StringField('Description', validators=[DataRequired()])\r\n+    submit = SubmitField('Submit')\r\n+\r\n+class EmployeeAssignForm(FlaskForm):\r\n+    \"\"\"\r\n+    Form for admin to assign departments and roles to employees\r\n+    \"\"\"\r\n+    department = QuerySelectField(query_factory=lambda: Department.query.all(),\r\n+                                  get_label=\"name\")\r\n+    role = QuerySelectField(query_factory=lambda: Role.query.all(),\r\n+                            get_label=\"name\")\r\n     submit = SubmitField('Submit')\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1634868627654,
+            "name": "Commit-0",
+            "content": "# app/admin/forms.py\r\n\r\nfrom flask_wtf import FlaskForm\r\nfrom wtforms import StringField, SubmitField\r\nfrom wtforms.validators import DataRequired\r\n\r\nclass DepartmentForm(FlaskForm):\r\n    \"\"\"\r\n    Form for admin to add or edit a department\r\n    \"\"\"\r\n    name = StringField('Name', validators=[DataRequired()])\r\n    description = StringField('Description', validators=[DataRequired()])\r\n    submit = SubmitField('Submit')"
+        }
+    ]
+}

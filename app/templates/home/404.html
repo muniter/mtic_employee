@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<!-- Begin Page Content -->
+<div class="m-0 vh-100 row justify-content-center align-items-center">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div style="text-align: center">
+                    <h1 class="main-title"> 404 Error </h1>
+                    <h3> The page you're looking for doesn't exist. </h3>
+                    <hr class="intro-divider">
+                    <a href="{{ url_for('home.dashboard') }}" class="btn btn-default btn-lg">
+                        <a class="active" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -47,11 +47,14 @@ def login():
                 form.password.data):
             # log employee in
             login_user(employee)
-        # if form.username.data == 'master' and form.password.data == 'Mision2021':
-
-            # redirect to the dashboard page after login
-            flash('You were successfully logged in')
-            return redirect(url_for('home.dashboard'))
+            
+        # redirect to the appropriate dashboard page
+            if employee.role_id == 1:
+                return redirect(url_for('home.superadmin_dashboard'))
+            elif employee.role_id == 2:
+                return redirect(url_for('home.admin_dashboard'))
+            else:
+                return redirect(url_for('home.dashboard'))
 
         # # when login details are incorrect
         else:

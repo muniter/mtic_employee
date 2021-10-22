@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/templates/home/employees.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1634876019628,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1634876019628,
+            "name": "Commit-0",
+            "content": "{% extends \"base.html\" %} {% block title %}Employees{% endblock %} {% block content %}\r\n<div class=\"content-section\">\r\n    <div class=\"outer\">\r\n        <div class=\"middle\">\r\n            <div class=\"inner\">\r\n\r\n                <br/>\r\n                <h1 style=\"text-align:center;\">Employees</h1>\r\n                {% if employees %}\r\n                <hr class=\"intro-divider\">\r\n                <div class=\"center\">\r\n                    <table class=\"table table-striped table-bordered\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th width=\"15%\"> Name </th>\r\n                                <th width=\"30%\"> Department </th>\r\n                                <th width=\"30%\"> Role </th>\r\n                                <th width=\"15%\"> Assign </th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            {% for employee in employees %} {% if employee.is_admin %}\r\n                            <tr style=\"background-color: #aec251; color: white;\">\r\n                                <td> <i class=\"fa fa-key\"></i> Admin </td>\r\n                                <td> N/A </td>\r\n                                <td> N/A </td>\r\n                                <td> N/A </td>\r\n                            </tr>\r\n                            {% else %}\r\n                            <tr>\r\n                                <td> {{ employee.first_name }} {{ employee.last_name }} </td>\r\n                                <td>\r\n                                    {% if employee.department %} {{ employee.department.name }} {% else %} - {% endif %}\r\n                                </td>\r\n                                <td>\r\n                                    {% if employee.role %} {{ employee.role.name }} {% else %} - {% endif %}\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"{{ url_for('admin.assign_employee', id=employee.id) }}\">\r\n                                        <i class=\"fa fa-user-plus\"></i> Assign\r\n                                    </a>\r\n                                </td>\r\n                            </tr>\r\n                            {% endif %} {% endfor %}\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n                {% endif %}\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n</div>\r\n{% endblock %}"
+        }
+    ]
+}

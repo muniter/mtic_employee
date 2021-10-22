@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1634824551419,
@@ -20,6 +20,14 @@
                 {
                     "date": 1634825360504,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,13 +2,15 @@\n <main class=\"page-center\">\r\n     <article class=\"sign-up\">\r\n         <h1 class=\"sign-up__title\">Welcome back!</h1>\r\n         <p class=\"sign-up__subtitle\">Sign in to your account to continue</p>\r\n-        {% with messages = get_flashed_messages() %} {% if messages %}\r\n-        <div class=\"alert alert-danger\" role=\"alert\">\r\n-            {{ messages[0] }}\r\n+        <div>\r\n+            {% with messages = get_flashed_messages() %} {% if messages %}\r\n+            <div class=\"alert alert-danger\" role=\"alert\">\r\n+                {{ messages[0] }}\r\n+            </div>\r\n+            {% endif %} {% endwith %}\r\n         </div>\r\n-        {% endif %} {% endwith %}\r\n         <form class=\"sign-up-form form\" method=\"post\" action=\"/login\">\r\n             {{ form.hidden_tag() }} {{ form.csrf_token() }}\r\n             <div class=\"form-label-wrapper\">\r\n                 {{ form.username.label (class=\"form-label\")}}\r\n"
+                },
+                {
+                    "date": 1634833604200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n                 {{ messages[0] }}\r\n             </div>\r\n             {% endif %} {% endwith %}\r\n         </div>\r\n-        <form class=\"sign-up-form form\" method=\"post\" action=\"/login\">\r\n+        <form class=\"sign-up-form form\" method=\"post\" action=\"{{ url_for('auth.login') }}\">\r\n             {{ form.hidden_tag() }} {{ form.csrf_token() }}\r\n             <div class=\"form-label-wrapper\">\r\n                 {{ form.username.label (class=\"form-label\")}}\r\n             </div>\r\n"
+                },
+                {
+                    "date": 1634837192884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,39 @@\n+{% extends \"base.html\" %} {% block content %}\r\n+<main class=\"page-center\">\r\n+    <article class=\"sign-up\">\r\n+        <h1 class=\"sign-up__title\">Welcome back!</h1>\r\n+        <p class=\"sign-up__subtitle\">Sign in to your account to continue</p>\r\n+        <div>\r\n+            {% with messages = get_flashed_messages() %} {% if messages %}\r\n+            <div class=\"alert alert-danger\" role=\"alert\">\r\n+                {{ messages[0] }}\r\n+            </div>\r\n+            {% endif %} {% endwith %}\r\n+        </div>\r\n+        <form class=\"sign-up-form form\" method=\"post\" action=\"{{ url_for('auth.login') }}\">\r\n+            {{ form.hidden_tag() }} {{ form.csrf_token() }}\r\n+            <div class=\"form-label-wrapper\">\r\n+                {{ form.username.label (class=\"form-label\")}}\r\n+            </div>\r\n+            <div class=\"form-label-wrapper\">\r\n+                {{ form.username (class=\"form-input\", type=\"username\", placeholder=\"Enter your username\")}}\r\n+            </div>\r\n+            <div class=\"form-label-wrapper\">\r\n+                {{ form.password.label (class=\"form-label\")}}\r\n+            </div>\r\n+            <div class=\"form-label-wrapper\">\r\n+                {{ form.password (class=\"form-input\", type=\"password\", placeholder=\"Enter your password\")}}\r\n+            </div>\r\n+            <a class=\"link-info forget-link\" href=\"##\">Forgot your password?</a>\r\n+            <label class=\"form-checkbox-wrapper\">\r\n+                <input class=\"form-checkbox\" type=\"checkbox\">\r\n+                <span class=\"form-checkbox-label\">Remember me next time</span>\r\n+            </label>\r\n+            <div>\r\n+                {{ form.submit(class=\"form-btn primary-default-btn transparent-btn\")}}\r\n+            </div>\r\n+\r\n+        </form>\r\n+    </article>\r\n+</main>\r\n+{% endblock %}\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1634824551419,

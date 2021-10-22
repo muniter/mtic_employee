@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}login{% endblock %} {% block content %}
+{% extends "base.html" %} {% block content %}
 <main class="page-center">
     <article class="sign-up">
         <h1 class="sign-up__title">Welcome back!</h1>
@@ -10,7 +10,7 @@
             </div>
             {% endif %} {% endwith %}
         </div>
-        <form class="sign-up-form form" method="post" action="/login">
+        <form class="sign-up-form form" method="post" action="{{ url_for('auth.login') }}">
             {{ form.hidden_tag() }} {{ form.csrf_token() }}
             <div class="form-label-wrapper">
                 {{ form.username.label (class="form-label")}}

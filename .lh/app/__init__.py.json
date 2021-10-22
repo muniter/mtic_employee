@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1634826570985,
@@ -12,6 +12,18 @@
                 {
                     "date": 1634826658448,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,11 +9,11 @@\n from settings import app_config\r\n \r\n \r\n db = SQLAlchemy()\r\n+login_manager = LoginManager()\r\n \r\n \r\n-\r\n def create_app(config_name):\r\n     app = Flask(__name__, instance_relative_config=True)\r\n     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employee.db'\r\n     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\r\n@@ -25,10 +25,9 @@\n     from app import models\r\n     \r\n     db.init_app(app)\r\n     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/employee.db'    \r\n-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\r\n-    login_manager = LoginManager()   \r\n+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True    \r\n     login_manager.login_message = \"You must be logged in to access this page.\"\r\n     login_manager.login_view = \"auth.login\"\r\n     login_manager.init_app(app)\r\n     migrate = Migrate(app, db)\r\n"
+                },
+                {
+                    "date": 1634845322646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n # third-party imports\r\n-from flask import Flask\r\n+from flask import Flask, render_template\r\n from flask_login import LoginManager\r\n from flask_migrate import Migrate\r\n from flask_sqlalchemy import SQLAlchemy\r\n import sqlite3\r\n@@ -33,8 +33,12 @@\n     migrate = Migrate(app, db)\r\n \r\n     # from .admin import admin as admin_blueprint\r\n     # app.register_blueprint(admin_blueprint, url_prefix='/admin')\r\n+    \r\n+    @app.errorhandler(404)\r\n+    def page_not_found(error):\r\n+        return render_template('errors/404.html', title='Page Not Found'), 404\r\n \r\n     from .auth import auth as auth_blueprint\r\n     app.register_blueprint(auth_blueprint)\r\n \r\n"
+                },
+                {
+                    "date": 1634845349091,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,15 +34,17 @@\n \r\n     # from .admin import admin as admin_blueprint\r\n     # app.register_blueprint(admin_blueprint, url_prefix='/admin')\r\n     \r\n-    @app.errorhandler(404)\r\n-    def page_not_found(error):\r\n-        return render_template('errors/404.html', title='Page Not Found'), 404\r\n+    \r\n \r\n     from .auth import auth as auth_blueprint\r\n     app.register_blueprint(auth_blueprint)\r\n \r\n     from .home import home as home_blueprint\r\n     app.register_blueprint(home_blueprint)\r\n+    \r\n+    @app.errorhandler(404)\r\n+    def page_not_found(error):\r\n+        return render_template('errors/404.html', title='Page Not Found'), 404\r\n \r\n     return app\r\n"
+                },
+                {
+                    "date": 1634853616573,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,7 +44,7 @@\n     app.register_blueprint(home_blueprint)\r\n     \r\n     @app.errorhandler(404)\r\n     def page_not_found(error):\r\n-        return render_template('errors/404.html', title='Page Not Found'), 404\r\n+        return render_template('home/404.html', title='Page Not Found'), 404\r\n \r\n     return app\r\n"
                 }
             ],
             "date": 1634826570985,

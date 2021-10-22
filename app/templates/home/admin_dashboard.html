@@ -67,7 +67,21 @@
                 <span class="system-menu__title">system</span>
                 <ul class="sidebar-body-menu">
                     <li>
-                        <a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a>
+                        <a class="show-cat-btn" href="##">
+                            <span class="icon user-3" aria-hidden="true"></span>Users
+                            <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                            </span>
+                        </a>
+                        <ul class="cat-sub-menu">
+                            <li>
+                                <a href="users-01.html">Users-01</a>
+                            </li>
+                            <li>
+                                <a href="users-02.html">Users-02</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="##"><span class="icon setting" aria-hidden="true"></span>Settings</a>
@@ -267,71 +281,75 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-9">
-                        <div class="users-table table-wrapper chart">
-                            <table class="posts-table able table-responsive table-hover">
+                        <div class="chart">
+                            <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
+                        </div>
+                        <div class="users-table table-wrapper">
+                            <table class="posts-table">
                                 <thead>
                                     <tr class="users-table-info">
-                                        <th>Data</th>
-                                        <th>Info</th>
+                                        <th>
+                                            <label class="users-table__checkbox ms-20">
+                                                <input type="checkbox" class="check-all">ID
+                                            </label>
+                                        </th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Departamento</th>
+                                        <th>Rol</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for employee in employees %} {% if employee.is_admin %}
+                                    <tr style="background-color: #aec251; color: white;">
+                                        <td> <i class="fa fa-key"></i> Admin </td>
+                                        <td> N/A </td>
+                                        <td> N/A </td>
+                                        <td> N/A </td>
+                                    </tr>
+                                    {% else %}
                                     <tr>
                                         <td>
-                                            ID
+                                            <label class="users-table__checkbox">
+                                                <input type="checkbox" class="check">
+                                            </label>
                                         </td>
                                         <td>
-                                            {{ current_user.id }}
+                                            {{ employee.id }}
+                                        </td>
+                                        <td>
+                                            {{ employee.username }}
+                                        </td>
+                                        <td>
+                                            {{ employee.first_name }}
+                                        </td>
+                                        <td>
+                                            {{ employee.last_name }}
+                                        </td>
+                                        <td>
+                                            {% if employee.department %} {{ employee.department.name }} {% else %} - {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if employee.role %} {{ employee.role.name }} {% else %} - {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="p-relative">
+                                                <button class="dropdown-btn transparent-btn" type="button" title="More info">
+                                                    <div class="sr-only">More info</div>
+                                                    <i data-feather="more-horizontal" aria-hidden="true"></i>
+                                                </button>
+                                                <ul class="users-item-dropdown dropdown">
+                                                    <li><a href="##">Edit</a></li>
+                                                    <li><a href="##">Quick edit</a></li>
+                                                    <li><a href="##">Trash</a></li>
+                                                </ul>
+                                            </span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            Username
-                                        </td>
-                                        <td>
-                                            {{ current_user.username }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Email
-                                        </td>
-                                        <td>
-                                            {{ current_user.email }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Nombres
-                                        </td>
-                                        <td>
-                                            {{ current_user.first_name }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Apellidos
-                                        </td>
-                                        <td>
-                                            {{ current_user.last_name }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Departamento
-                                        </td>
-                                        <td>
-                                            {{ current_user.department_id }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Rol
-                                        </td>
-                                        <td>
-                                            {{ current_user.role_id }}
-                                        </td>
-                                    </tr>
+                                    {% endif %} {% endfor %}
                                 </tbody>
                             </table>
                         </div>

@@ -1,0 +1,82 @@
+{
+    "sourceFile": "app/home/views.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 16,
+            "patches": [
+                {
+                    "date": 1634834145867,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634834233068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,5 +22,5 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', title=\"Dashboard\", name=current_user.name)\n\\ No newline at end of file\n+    return render_template('home/dashboard.html', name=current_user.name)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634834269570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,5 +22,5 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user.name)\n\\ No newline at end of file\n+    return render_template('home/dashboard.html', name=current_user.username)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634836992061,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,5 +22,5 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user.username)\n\\ No newline at end of file\n+    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634844756051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,5 +22,9 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\n\\ No newline at end of file\n+    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n+\r\n+@home.errorhandler(404)\r\n+def page_not_found(error):\r\n+    return render_template(\"error.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634844785402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,5 @@\n     return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n \r\n @home.errorhandler(404)\r\n def page_not_found(error):\r\n-    return render_template(\"error.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n+    return render_template(\"home/404.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634845003571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,5 @@\n     return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n \r\n @home.errorhandler(404)\r\n def page_not_found(error):\r\n-    return render_template(\"home/404.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n+    return render_template(\"home/error.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634845357892,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,7 +24,4 @@\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n     return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n \r\n-@home.errorhandler(404)\r\n-def page_not_found(error):\r\n-    return render_template(\"home/error.html\", error=\"Página no encontrada...\"), 404\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634854493873,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,6 +22,6 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n+    return render_template('home/dashboard.html', name=current_user, title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634854722769,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,6 +22,6 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user, title=\"Dashboard\")\r\n+    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634856811413,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,6 +22,6 @@\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n-    return render_template('home/dashboard.html', name=current_user.username, title=\"Dashboard\")\r\n+    return render_template('home/dashboard.html', title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634856947302,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     return redirect(url_for('auth.login'))\r\n \r\n \r\n @home.route('/dashboard')\r\n-#@login_required\r\n+@login_required\r\n def dashboard():\r\n     \"\"\"\r\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n"
+                },
+                {
+                    "date": 1634861727317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,4 +24,14 @@\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n     return render_template('home/dashboard.html', title=\"Dashboard\")\r\n \r\n+# add admin dashboard view\r\n+@home.route('/admin/dashboard')\r\n+@login_required\r\n+def admin_dashboard():\r\n+    # prevent non-admins from accessing the page\r\n+    if not current_user.is_admin:\r\n+        abort(403)\r\n+\r\n+    return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n+\r\n"
+                },
+                {
+                    "date": 1634861748572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n @home.route('/admin/dashboard')\r\n @login_required\r\n def admin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n-    if not current_user.is_admin:\r\n-        abort(403)\r\n+    #if not current_user.is_admin:\r\n+        #abort(403)\r\n \r\n     return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634868187635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,4 +34,13 @@\n         #abort(403)\r\n \r\n     return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n+@home.route('/superadmin/dashboard')\r\n+@login_required\r\n+def admin_dashboard():\r\n+    # prevent non-admins from accessing the page\r\n+    #if not current_user.is_admin:\r\n+        #abort(403)\r\n+\r\n+    return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n+\r\n"
+                },
+                {
+                    "date": 1634868466025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n     return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n @home.route('/superadmin/dashboard')\r\n @login_required\r\n-def admin_dashboard():\r\n+def superadmin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n     #if not current_user.is_admin:\r\n         #abort(403)\r\n \r\n"
+                },
+                {
+                    "date": 1634876175154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,4 +43,6 @@\n         #abort(403)\r\n \r\n     return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n+\r\n+\r\n"
+                }
+            ],
+            "date": 1634834145867,
+            "name": "Commit-0",
+            "content": "# app/home/views.py\r\n\r\nfrom os import name\r\nfrom flask import flash, redirect, render_template, url_for\r\nfrom flask_login import login_required, current_user\r\nfrom flask_wtf import form\r\n\r\nfrom app.auth.forms import LoginForm\r\n\r\nfrom . import home\r\n\r\n@home.route('/')\r\ndef homepage():\r\n    \"\"\"\r\n    Render the homepage template on the / route\r\n    \"\"\"\r\n    return redirect(url_for('auth.login'))\r\n\r\n\r\n@home.route('/dashboard')\r\n#@login_required\r\ndef dashboard():\r\n    \"\"\"\r\n    Render the dashboard template on the /dashboard route\r\n    \"\"\"\r\n    return render_template('home/dashboard.html', title=\"Dashboard\", name=current_user.name)"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1634825000721,
@@ -20,6 +20,22 @@
                 {
                     "date": 1634826593810,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,14 @@\n     form = LoginForm()\r\n     if form.validate_on_submit():\r\n         # check whether employee exists in the database and whether\r\n         # the password entered matches the password in the database\r\n-        # employee = Employee.query.filter_by(username=form.username.data).first()\r\n-        # if employee is not None and employee.verify_password(\r\n-        #         form.password.data):\r\n-        #     # log employee in\r\n-        #     login_user(employee)\r\n-        if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n+        employee = Employee.query.filter_by(username=form.username.data).first()\r\n+        if employee is not None and employee.verify_password(\r\n+                form.password.data):\r\n+            # log employee in\r\n+            login_user(employee)\r\n+        # if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n \r\n             # redirect to the dashboard page after login\r\n             flash('You were successfully logged in')\r\n             return redirect(url_for('home.dashboard'))\r\n"
+                },
+                {
+                    "date": 1634833426626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n             login_user(employee)\r\n         # if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n \r\n             # redirect to the dashboard page after login\r\n-            flash('You were successfully logged in')\r\n+            #flash('You were successfully logged in')\r\n             return redirect(url_for('home.dashboard'))\r\n \r\n         # # when login details are incorrect\r\n         else:\r\n"
+                },
+                {
+                    "date": 1634868259876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,14 +46,15 @@\n         if employee is not None and employee.verify_password(\r\n                 form.password.data):\r\n             # log employee in\r\n             login_user(employee)\r\n-        # if form.username.data == 'master' and form.password.data == 'Mision2021':\r\n+            \r\n+        # redirect to the appropriate dashboard page\r\n+            if employee.is_admin:\r\n+                return redirect(url_for('home.admin_dashboard'))\r\n+            else:\r\n+                return redirect(url_for('home.dashboard'))\r\n \r\n-            # redirect to the dashboard page after login\r\n-            #flash('You were successfully logged in')\r\n-            return redirect(url_for('home.dashboard'))\r\n-\r\n         # # when login details are incorrect\r\n         else:\r\n             flash('Invalid username or password.')\r\n \r\n"
+                },
+                {
+                    "date": 1634868371344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,10 +48,10 @@\n             # log employee in\r\n             login_user(employee)\r\n             \r\n         # redirect to the appropriate dashboard page\r\n-            if employee.is_admin:\r\n-                return redirect(url_for('home.admin_dashboard'))\r\n+            if employee.role_id == 1:\r\n+                return redirect(url_for('home.superadmin_dashboard'))\r\n             else:\r\n                 return redirect(url_for('home.dashboard'))\r\n \r\n         # # when login details are incorrect\r\n"
+                },
+                {
+                    "date": 1634868400319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,10 @@\n             \r\n         # redirect to the appropriate dashboard page\r\n             if employee.role_id == 1:\r\n                 return redirect(url_for('home.superadmin_dashboard'))\r\n+            elif employee.role_id == 2:\r\n+                return redirect(url_for('home.admin_dashboard'))\r\n             else:\r\n                 return redirect(url_for('home.dashboard'))\r\n \r\n         # # when login details are incorrect\r\n"
                 }
             ],
             "date": 1634825000721,
