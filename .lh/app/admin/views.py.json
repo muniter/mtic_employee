@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1634868669176,
@@ -52,6 +52,14 @@
                 {
                     "date": 1634876188724,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -213,9 +213,9 @@\n     \"\"\"\r\n     check_admin()\r\n \r\n     employees = Employee.query.all()\r\n-    return render_template('home/employees.html',\r\n+    return render_template('admin/employees/employees.html',\r\n                            employees=employees, title='Employees')\r\n \r\n @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n"
+                },
+                {
+                    "date": 1634917255879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,14 @@\n     \"\"\"\r\n     if not current_user.is_admin:\r\n         abort(403)\r\n \r\n+def check_superadmin():\r\n+    \"\"\"\r\n+    Prevent non-admins from accessing the page\r\n+    \"\"\"\r\n+    if not current_user.is_admin:\r\n+        abort(403)\r\n \r\n \r\n # Department Views\r\n @admin.route('/departments', methods=['GET', 'POST'])\r\n"
+                },
+                {
+                    "date": 1634917336264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,16 +13,16 @@\n def check_admin():\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n def check_superadmin():\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 1:\r\n         abort(403)\r\n \r\n \r\n # Department Views\r\n"
                 }
             ],
             "date": 1634868669176,

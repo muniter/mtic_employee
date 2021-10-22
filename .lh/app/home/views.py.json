@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1634834145867,
@@ -72,6 +72,30 @@
                 {
                     "date": 1634876175154,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,4 +43,6 @@\n         #abort(403)\r\n \r\n     return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n+\r\n+\r\n"
+                },
+                {
+                    "date": 1634917135041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,19 +29,19 @@\n @home.route('/admin/dashboard')\r\n @login_required\r\n def admin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n-    #if not current_user.is_admin:\r\n-        #abort(403)\r\n+    if not current_user.is_admin:\r\n+        abort(403)\r\n \r\n     return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n @home.route('/superadmin/dashboard')\r\n @login_required\r\n def superadmin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n-    #if not current_user.is_admin:\r\n-        #abort(403)\r\n+    if not current_user.is_admin:\r\n+        abort(403)\r\n \r\n     return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1634917235401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n @home.route('/admin/dashboard')\r\n @login_required\r\n def admin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n     return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634917300692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n @home.route('/superadmin/dashboard')\r\n @login_required\r\n def superadmin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 1:\r\n         abort(403)\r\n \r\n     return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n"
+                },
+                {
+                    "date": 1634917505893,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,25 +24,8 @@\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n     return render_template('home/dashboard.html', title=\"Dashboard\")\r\n \r\n-# add admin dashboard view\r\n-@home.route('/admin/dashboard')\r\n-@login_required\r\n-def admin_dashboard():\r\n-    # prevent non-admins from accessing the page\r\n-    if not current_user.role_id == 2:\r\n-        abort(403)\r\n \r\n-    return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n-@home.route('/superadmin/dashboard')\r\n-@login_required\r\n-def superadmin_dashboard():\r\n-    # prevent non-admins from accessing the page\r\n-    if not current_user.role_id == 1:\r\n-        abort(403)\r\n \r\n-    return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n-\r\n-\r\n"
+                },
+                {
+                    "date": 1634917604067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,25 @@\n     Render the dashboard template on the /dashboard route\r\n     \"\"\"\r\n     return render_template('home/dashboard.html', title=\"Dashboard\")\r\n \r\n+# add admin dashboard view\r\n+@home.route('/admin/dashboard')\r\n+@login_required\r\n+def admin_dashboard():\r\n+    # prevent non-admins from accessing the page\r\n+    if not current_user.role_id == 2:\r\n+        abort(403)\r\n \r\n+    return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n \r\n+@home.route('/superadmin/dashboard')\r\n+@login_required\r\n+def superadmin_dashboard():\r\n+    # prevent non-admins from accessing the page\r\n+    if not current_user.role_id == 1:\r\n+        abort(403)\r\n \r\n+    return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n \r\n+\r\n+\r\n"
+                },
+                {
+                    "date": 1634917746274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n # app/home/views.py\r\n \r\n from os import name\r\n-from flask import flash, redirect, render_template, url_for\r\n+from flask import flash, redirect, render_template, url_for, abort\r\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n from app.auth.forms import LoginForm\r\n"
                 }
             ],
             "date": 1634834145867,

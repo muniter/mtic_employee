@@ -14,9 +14,15 @@ def check_admin():
     """
     Prevent non-admins from accessing the page
     """
-    if not current_user.is_admin:
+    if not current_user.role_id == 2:
         abort(403)
 
+def check_superadmin():
+    """
+    Prevent non-admins from accessing the page
+    """
+    if not current_user.role_id == 1:
+        abort(403)
 
 
 # Department Views

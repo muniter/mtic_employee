@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1634826570985,
@@ -24,6 +24,22 @@
                 {
                     "date": 1634853616573,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,7 +44,7 @@\n     app.register_blueprint(home_blueprint)\r\n     \r\n     @app.errorhandler(404)\r\n     def page_not_found(error):\r\n-        return render_template('errors/404.html', title='Page Not Found'), 404\r\n+        return render_template('home/404.html', title='Page Not Found'), 404\r\n \r\n     return app\r\n"
+                },
+                {
+                    "date": 1634917166133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,5 +46,9 @@\n     @app.errorhandler(404)\r\n     def page_not_found(error):\r\n         return render_template('home/404.html', title='Page Not Found'), 404\r\n \r\n+    @app.errorhandler(403)\r\n+    def forbidden(error):\r\n+        return render_template('errors/403.html', title='Forbidden'), 403\r\n+    \r\n     return app\r\n"
+                },
+                {
+                    "date": 1634917438821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,7 +48,7 @@\n         return render_template('home/404.html', title='Page Not Found'), 404\r\n \r\n     @app.errorhandler(403)\r\n     def forbidden(error):\r\n-        return render_template('errors/403.html', title='Forbidden'), 403\r\n+        return render_template('home/403.html', title='Forbidden'), 403\r\n     \r\n     return app\r\n"
+                },
+                {
+                    "date": 1634917451474,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,13 +42,16 @@\n \r\n     from .home import home as home_blueprint\r\n     app.register_blueprint(home_blueprint)\r\n     \r\n+    @app.errorhandler(403)\r\n+    def forbidden(error):\r\n+        return render_template('home/403.html', title='Forbidden'), 403\r\n+    \r\n+    \r\n     @app.errorhandler(404)\r\n     def page_not_found(error):\r\n         return render_template('home/404.html', title='Page Not Found'), 404\r\n \r\n-    @app.errorhandler(403)\r\n-    def forbidden(error):\r\n-        return render_template('home/403.html', title='Forbidden'), 403\r\n     \r\n+    \r\n     return app\r\n"
+                },
+                {
+                    "date": 1634917459971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,7 @@\n     \r\n     @app.errorhandler(404)\r\n     def page_not_found(error):\r\n         return render_template('home/404.html', title='Page Not Found'), 404\r\n-\r\n+  \r\n     \r\n-    \r\n     return app\r\n"
                 }
             ],
             "date": 1634826570985,

@@ -1,7 +1,7 @@
 # app/home/views.py
 
 from os import name
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, abort
 from flask_login import login_required, current_user
 from flask_wtf import form
 
@@ -30,8 +30,8 @@ def dashboard():
 @login_required
 def admin_dashboard():
     # prevent non-admins from accessing the page
-    #if not current_user.is_admin:
-        #abort(403)
+    if not current_user.role_id == 2:
+        abort(403)
 
     return render_template('home/admin_dashboard.html', title="Dashboard")
 
@@ -39,8 +39,8 @@ def admin_dashboard():
 @login_required
 def superadmin_dashboard():
     # prevent non-admins from accessing the page
-    #if not current_user.is_admin:
-        #abort(403)
+    if not current_user.role_id == 1:
+        abort(403)
 
     return render_template('home/superadmin_dashboard.html', title="Dashboard")
 

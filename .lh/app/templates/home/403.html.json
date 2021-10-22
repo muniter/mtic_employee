@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/templates/home/403.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1634917045472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1634917045472,
+            "name": "Commit-0",
+            "content": "{% extends \"base.html\" %} {% block content %}\r\n<!-- Begin Page Content -->\r\n<div class=\"m-0 vh-100 row justify-content-center align-items-center\">\r\n    <div class=\"outer\">\r\n        <div class=\"middle\">\r\n            <div class=\"inner\">\r\n                <div style=\"text-align: center\">\r\n                    <h1 class=\"main-title\"> 403 Error </h1>\r\n                    <h3> You do not have sufficient permissions to access this page. </h3>\r\n                    <hr class=\"intro-divider\">\r\n                    <a href=\"{{ url_for('home.dashboard') }}\" class=\"btn btn-default btn-lg\">\r\n                        <a class=\"active\" href=\"/\"><span class=\"icon home\" aria-hidden=\"true\"></span>Dashboard</a>\r\n                    </a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n{% endblock %}"
+        }
+    ]
+}
