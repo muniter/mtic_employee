@@ -51,3 +51,9 @@ docs/_build/
 
 # Instance
 instance/
+
+# Database
+*.db
+
+#Virtual env
+.venv/
