@@ -1,7 +1,7 @@
 import datetime
 
 from flask_appbuilder import Model
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, Float, String, Table, Text, Enum
+from sqlalchemy import Column, Date, ForeignKey, Integer, Float, String, Text, Enum
 from flask_appbuilder.security.sqla.models import User
 # from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
@@ -42,12 +42,13 @@ class Employee(Record, Model):
     salary = Column(Float)
     reports = relationship("EmployeeReport", backref="employee")
 
+class MyUser(User):
+    __tablename__ = "ab_user"
+    employee_id = Column(Integer, ForeignKey("employee.id"), nullable=True)
+    employee = relationship("Employee", backref="user")
 
 class EmployeeReport(Record, Model):
     __tablename__ = "employeereport"
     name = Column(String, unique=False, nullable=False)
     text = Column(Text, nullable=False)
     employee_id = Column(Integer, ForeignKey("employee.id"))
-
-def today():
-    return datetime.datetime.today().strftime("%Y-%m-%d")

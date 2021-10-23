@@ -11,7 +11,7 @@ class MyUserDBModelView(UserDBModelView):
     add_form_query_rel_fields = {'role': [['role.name', FilterEqualAdmin, 'User']]}
     show_fieldsets = [
         ('User info',
-         {'fields': ['username', 'active', 'roles', 'login_count', 'employee_id']}),
+         {'fields': ['username', 'active', 'roles', 'login_count', 'employee']}),
         ('Personal Info',
          {'fields': ['first_name', 'last_name', 'email'], 'expanded': True}),
         ('Audit Info',
@@ -21,7 +21,7 @@ class MyUserDBModelView(UserDBModelView):
 
     user_show_fieldsets = [
         ('User info',
-         {'fields': ['username', 'active', 'roles', 'login_count', 'employee_id']}),
+         {'fields': ['username', 'active', 'roles', 'login_count', 'employee']}),
         ('Personal Info',
          {'fields': ['first_name', 'last_name', 'email'], 'expanded': True}),
     ]
@@ -33,7 +33,7 @@ class MyUserDBModelView(UserDBModelView):
         'active',
         'email',
         'roles',
-        'employee_id',
+        'employee',
         'password',
         'conf_password'
     ]
@@ -52,5 +52,5 @@ class MyUserDBModelView(UserDBModelView):
         'active',
         'email',
         'roles',
-        'employee_id',
+        'employee',
     ]
