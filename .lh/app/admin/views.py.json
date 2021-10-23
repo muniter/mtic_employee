@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 18,
+            "activePatchIndex": 39,
             "patches": [
                 {
                     "date": 1634868669176,
@@ -80,6 +80,90 @@
                 {
                     "date": 1634954517603,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n from flask_login import current_user, login_required\r\n \r\n # imports local\r\n from . import admin\r\n-from forms import DepartmentForm, EmployeeAssignForm, RoleForm\r\n+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm\r\n from .. import db\r\n from ..models import Department, Employee, Role\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1635019680159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,8 +34,9 @@\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n"
+                },
+                {
+                    "date": 1635019779313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,10 @@\n def add_department():\r\n     \"\"\"\r\n     Add a department to the database\r\n     \"\"\"\r\n-    check_admin()\r\n+    \r\n+    check_superadmin()\r\n \r\n     add_department = True\r\n \r\n     form = DepartmentForm()\r\n@@ -81,8 +82,9 @@\n     \"\"\"\r\n     Edit a department\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     add_department = False\r\n \r\n     department = Department.query.get_or_404(id)\r\n@@ -109,8 +111,9 @@\n     \"\"\"\r\n     Delete a department from the database\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     department = Department.query.get_or_404(id)\r\n     db.session.delete(department)\r\n     db.session.commit()\r\n@@ -128,8 +131,9 @@\n @admin.route('/roles')\r\n @login_required\r\n def list_roles():\r\n     check_admin()\r\n+    check_superadmin()\r\n     \"\"\"\r\n     List all roles\r\n     \"\"\"\r\n     roles = Role.query.all()\r\n@@ -142,9 +146,10 @@\n def add_role():\r\n     \"\"\"\r\n     Add a role to the database\r\n     \"\"\"\r\n-    check_admin()\r\n+    \r\n+    check_superadmin()\r\n \r\n     add_role = True\r\n \r\n     form = RoleForm()\r\n@@ -175,8 +180,9 @@\n     \"\"\"\r\n     Edit a role\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     add_role = False\r\n \r\n     role = Role.query.get_or_404(id)\r\n@@ -203,8 +209,9 @@\n     \"\"\"\r\n     Delete a role from the database\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     role = Role.query.get_or_404(id)\r\n     db.session.delete(role)\r\n     db.session.commit()\r\n@@ -224,8 +231,9 @@\n     \"\"\"\r\n     List all employees\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     employees = Employee.query.all()\r\n     return render_template('admin/employees/employees.html',\r\n                            employees=employees, title='Employees')\r\n@@ -237,8 +245,9 @@\n     \"\"\"\r\n     Assign a department and a role to an employee\r\n     \"\"\"\r\n     check_admin()\r\n+    check_superadmin()\r\n \r\n     employee = Employee.query.get_or_404(id)\r\n \r\n     # prevent admin from being assigned a department or role\r\n"
+                },
+                {
+                    "date": 1635020103984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,10 +48,10 @@\n def add_department():\r\n     \"\"\"\r\n     Add a department to the database\r\n     \"\"\"\r\n-    \r\n     check_superadmin()\r\n+    check_superadmin()\r\n \r\n     add_department = True\r\n \r\n     form = DepartmentForm()\r\n"
+                },
+                {
+                    "date": 1635020134905,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n     \"\"\"\r\n     Add a department to the database\r\n     \"\"\"\r\n     check_superadmin()\r\n-    check_superadmin()\r\n+    check_admin()\r\n \r\n     add_department = True\r\n \r\n     form = DepartmentForm()\r\n"
+                },
+                {
+                    "date": 1635020166289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n def add_department():\r\n     \"\"\"\r\n     Add a department to the database\r\n     \"\"\"\r\n-    check_superadmin()\r\n+    \r\n     check_admin()\r\n \r\n     add_department = True\r\n \r\n"
+                },
+                {
+                    "date": 1635020172101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n"
+                },
+                {
+                    "date": 1635020188311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,9 @@\n     \"\"\"\r\n     Edit a department\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     add_department = False\r\n \r\n     department = Department.query.get_or_404(id)\r\n"
+                },
+                {
+                    "date": 1635020193936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,9 +111,9 @@\n     \"\"\"\r\n     Delete a department from the database\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     department = Department.query.get_or_404(id)\r\n     db.session.delete(department)\r\n     db.session.commit()\r\n"
+                },
+                {
+                    "date": 1635020199423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -131,9 +131,9 @@\n @admin.route('/roles')\r\n @login_required\r\n def list_roles():\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n     \"\"\"\r\n     List all roles\r\n     \"\"\"\r\n     roles = Role.query.all()\r\n"
+                },
+                {
+                    "date": 1635020205875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -147,9 +147,9 @@\n     \"\"\"\r\n     Add a role to the database\r\n     \"\"\"\r\n     \r\n-    check_superadmin()\r\n+    check_admin()\r\n \r\n     add_role = True\r\n \r\n     form = RoleForm()\r\n"
+                },
+                {
+                    "date": 1635020216119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     \"\"\"\r\n     if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n-def check_superadmin():\r\n+def :\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n     if not current_user.role_id == 1:\r\n@@ -180,9 +180,9 @@\n     \"\"\"\r\n     Edit a role\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     add_role = False\r\n \r\n     role = Role.query.get_or_404(id)\r\n@@ -209,9 +209,9 @@\n     \"\"\"\r\n     Delete a role from the database\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     role = Role.query.get_or_404(id)\r\n     db.session.delete(role)\r\n     db.session.commit()\r\n@@ -231,9 +231,9 @@\n     \"\"\"\r\n     List all employees\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     employees = Employee.query.all()\r\n     return render_template('admin/employees/employees.html',\r\n                            employees=employees, title='Employees')\r\n@@ -245,9 +245,9 @@\n     \"\"\"\r\n     Assign a department and a role to an employee\r\n     \"\"\"\r\n     check_admin()\r\n-    check_superadmin()\r\n+    \r\n \r\n     employee = Employee.query.get_or_404(id)\r\n \r\n     # prevent admin from being assigned a department or role\r\n"
+                },
+                {
+                    "date": 1635020274648,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     \"\"\"\r\n     if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n-def :\r\n+def check_superadmin():\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n     if not current_user.role_id == 1:\r\n"
+                },
+                {
+                    "date": 1635024214772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -237,9 +237,40 @@\n     employees = Employee.query.all()\r\n     return render_template('admin/employees/employees.html',\r\n                            employees=employees, title='Employees')\r\n \r\n+@admin.route('/employees/add', methods=['GET', 'POST'])\r\n+@login_required\r\n+def add_employee():\r\n+    \"\"\"\r\n+    Add a role to the database\r\n+    \"\"\"\r\n+    \r\n+    check_admin()\r\n \r\n+    add_employee = True\r\n+\r\n+    form = EmployeeForm()\r\n+    if form.validate_on_submit():\r\n+        employee = Employee(name=form.name.data,\r\n+                    description=form.description.data)\r\n+\r\n+        try:\r\n+            # add role to the database\r\n+            db.session.add(employee)\r\n+            db.session.commit()\r\n+            flash('You have successfully added a new role.')\r\n+        except:\r\n+            # in case role name already exists\r\n+            flash('Error: user name already exists.')\r\n+\r\n+        # redirect to the roles page\r\n+        return redirect(url_for('admin.list_employees'))\r\n+\r\n+    # load role template\r\n+    return render_template('admin/employees/employee.html', add_employee=add_employee,\r\n+                           form=form, title='Add Role')\r\n+\r\n @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n def assign_employee(id):\r\n     \"\"\"\r\n"
+                },
+                {
+                    "date": 1635024255771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n from flask_login import current_user, login_required\r\n \r\n # imports local\r\n from . import admin\r\n-from .forms import DepartmentForm, EmployeeAssignForm, RoleForm\r\n+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, EmployeeForm\r\n from .. import db\r\n from ..models import Department, Employee, Role\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1635024355743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -257,19 +257,19 @@\n         try:\r\n             # add role to the database\r\n             db.session.add(employee)\r\n             db.session.commit()\r\n-            flash('You have successfully added a new role.')\r\n+            flash('You have successfully added a new employee.')\r\n         except:\r\n             # in case role name already exists\r\n-            flash('Error: user name already exists.')\r\n+            flash('Error: username already exists.')\r\n \r\n         # redirect to the roles page\r\n         return redirect(url_for('admin.list_employees'))\r\n \r\n     # load role template\r\n     return render_template('admin/employees/employee.html', add_employee=add_employee,\r\n-                           form=form, title='Add Role')\r\n+                           form=form, title='Add Employee')\r\n \r\n @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n def assign_employee(id):\r\n"
+                },
+                {
+                    "date": 1635024622254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -250,10 +250,13 @@\n     add_employee = True\r\n \r\n     form = EmployeeForm()\r\n     if form.validate_on_submit():\r\n-        employee = Employee(name=form.name.data,\r\n-                    description=form.description.data)\r\n+        employee = Employee(email=form.email.data,\r\n+                    username=form.username.data,\r\n+                    first_name=form.first_name.data,\r\n+                    last_name=form.last_name.data,\r\n+                    password=form.password.data)\r\n \r\n         try:\r\n             # add role to the database\r\n             db.session.add(employee)\r\n"
+                },
+                {
+                    "date": 1635024659564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -257,9 +257,9 @@\n                     last_name=form.last_name.data,\r\n                     password=form.password.data)\r\n \r\n         try:\r\n-            # add role to the database\r\n+            # add employee to the database\r\n             db.session.add(employee)\r\n             db.session.commit()\r\n             flash('You have successfully added a new employee.')\r\n         except:\r\n"
+                },
+                {
+                    "date": 1635024677921,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -262,9 +262,9 @@\n             db.session.add(employee)\r\n             db.session.commit()\r\n             flash('You have successfully added a new employee.')\r\n         except:\r\n-            # in case role name already exists\r\n+            # in case employee username already exists\r\n             flash('Error: username already exists.')\r\n \r\n         # redirect to the roles page\r\n         return redirect(url_for('admin.list_employees'))\r\n"
+                },
+                {
+                    "date": 1635025828298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -298,7 +298,7 @@\n \r\n         # redirect to the roles page\r\n         return redirect(url_for('admin.list_employees'))\r\n \r\n-    return render_template('admin/employees/employee.html',\r\n+    return render_template('admin/employees/employe.html',\r\n                            employee=employee, form=form,\r\n                            title='Assign Employee')\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635026314420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -254,9 +254,10 @@\n         employee = Employee(email=form.email.data,\r\n                     username=form.username.data,\r\n                     first_name=form.first_name.data,\r\n                     last_name=form.last_name.data,\r\n-                    password=form.password.data)\r\n+                    password=form.password.data,\r\n+                    confirm_password = form.confirm_password.data)\r\n \r\n         try:\r\n             # add employee to the database\r\n             db.session.add(employee)\r\n"
+                },
+                {
+                    "date": 1635026562356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -254,10 +254,9 @@\n         employee = Employee(email=form.email.data,\r\n                     username=form.username.data,\r\n                     first_name=form.first_name.data,\r\n                     last_name=form.last_name.data,\r\n-                    password=form.password.data,\r\n-                    confirm_password = form.confirm_password.data)\r\n+                    password=form.password.data)\r\n \r\n         try:\r\n             # add employee to the database\r\n             db.session.add(employee)\r\n"
                 }
             ],
             "date": 1634868669176,

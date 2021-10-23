@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1634868627655,
@@ -12,6 +12,22 @@
                 {
                     "date": 1634870572876,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,34 @@\n \r\n from flask_wtf import FlaskForm\r\n from wtforms import StringField, SubmitField\r\n from wtforms.validators import DataRequired\r\n+from wtforms.ext.sqlalchemy.fields import QuerySelectField\r\n \r\n+from ..models import Department, Role\r\n+\r\n class DepartmentForm(FlaskForm):\r\n     \"\"\"\r\n     Form for admin to add or edit a department\r\n     \"\"\"\r\n     name = StringField('Name', validators=[DataRequired()])\r\n     description = StringField('Description', validators=[DataRequired()])\r\n+    submit = SubmitField('Submit')\r\n+\r\n+\r\n+class RoleForm(FlaskForm):\r\n+    \"\"\"\r\n+    Form for admin to add or edit a role\r\n+    \"\"\"\r\n+    name = StringField('Name', validators=[DataRequired()])\r\n+    description = StringField('Description', validators=[DataRequired()])\r\n+    submit = SubmitField('Submit')\r\n+\r\n+class EmployeeAssignForm(FlaskForm):\r\n+    \"\"\"\r\n+    Form for admin to assign departments and roles to employees\r\n+    \"\"\"\r\n+    department = QuerySelectField(query_factory=lambda: Department.query.all(),\r\n+                                  get_label=\"name\")\r\n+    role = QuerySelectField(query_factory=lambda: Role.query.all(),\r\n+                            get_label=\"name\")\r\n     submit = SubmitField('Submit')\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635024230634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n from wtforms import StringField, SubmitField\r\n from wtforms.validators import DataRequired\r\n from wtforms.ext.sqlalchemy.fields import QuerySelectField\r\n \r\n-from ..models import Department, Role\r\n+from ..models import Department, Role, Employee\r\n \r\n class DepartmentForm(FlaskForm):\r\n     \"\"\"\r\n     Form for admin to add or edit a department\r\n@@ -31,5 +31,17 @@\n     department = QuerySelectField(query_factory=lambda: Department.query.all(),\r\n                                   get_label=\"name\")\r\n     role = QuerySelectField(query_factory=lambda: Role.query.all(),\r\n                             get_label=\"name\")\r\n-    submit = SubmitField('Submit')\n\\ No newline at end of file\n+    submit = SubmitField('Submit')\r\n+    \r\n+\r\n+class EmployeeForm(FlaskForm):\r\n+    \"\"\"\r\n+    Form for admin to add or edit a employee\r\n+    \"\"\"\r\n+    email = StringField('email', validators=[DataRequired()])\r\n+    username= StringField('username', validators=[DataRequired()])\r\n+    first_name = StringField('first_name', validators=[DataRequired()])\r\n+    last_name = StringField('last_name', validators=[DataRequired()])\r\n+    password = StringField('password', validators=[DataRequired()])\r\n+                            \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635024278384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,5 +43,6 @@\n     username= StringField('username', validators=[DataRequired()])\r\n     first_name = StringField('first_name', validators=[DataRequired()])\r\n     last_name = StringField('last_name', validators=[DataRequired()])\r\n     password = StringField('password', validators=[DataRequired()])\r\n+    submit = SubmitField('Submit')\r\n                             \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635026426426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,6 +43,7 @@\n     username= StringField('username', validators=[DataRequired()])\r\n     first_name = StringField('first_name', validators=[DataRequired()])\r\n     last_name = StringField('last_name', validators=[DataRequired()])\r\n     password = StringField('password', validators=[DataRequired()])\r\n+    confirm_password = StringField('confirm_password', validators=[DataRequired()])\r\n     submit = SubmitField('Submit')\r\n                             \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635026473809,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,7 +43,6 @@\n     username= StringField('username', validators=[DataRequired()])\r\n     first_name = StringField('first_name', validators=[DataRequired()])\r\n     last_name = StringField('last_name', validators=[DataRequired()])\r\n     password = StringField('password', validators=[DataRequired()])\r\n-    confirm_password = StringField('confirm_password', validators=[DataRequired()])\r\n     submit = SubmitField('Submit')\r\n                             \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1634868627654,

@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/templates/auth/register.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1635023155228,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635023173832,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n <main class=\"page-center\">\n     <article class=\"sign-up\">\n         <h1 class=\"sign-up__title\">Get started</h1>\n         <p class=\"sign-up__subtitle\">Start creating the best possible user experience for you customers</p>\n-        <form class=\"sign-up-form form\" action=\"post\" method=\"{{ url_for('auth.login') }}\">\n+        <form class=\"sign-up-form form\" action=\"post\" method=\"{{ url_for('auth.register') }}\">\n             {{ form.csrf_token() }}\n             <div class=\"form-label-wrapper\">\n                 {{ form.email.label (class=\"form-label\")}}\n             </div>\n"
+                },
+                {
+                    "date": 1635023250991,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n     <article class=\"sign-up\">\n         <h1 class=\"sign-up__title\">Get started</h1>\n         <p class=\"sign-up__subtitle\">Start creating the best possible user experience for you customers</p>\n         <form class=\"sign-up-form form\" action=\"post\" method=\"{{ url_for('auth.register') }}\">\n-            {{ form.csrf_token() }}\n+            {{ form.hidden_tag() }} {{ form.csrf_token() }}\n             <div class=\"form-label-wrapper\">\n                 {{ form.email.label (class=\"form-label\")}}\n             </div>\n             <div class=\"form-label-wrapper\">\n"
+                },
+                {
+                    "date": 1635023361025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n     <article class=\"sign-up\">\n         <h1 class=\"sign-up__title\">Get started</h1>\n         <p class=\"sign-up__subtitle\">Start creating the best possible user experience for you customers</p>\n         <form class=\"sign-up-form form\" action=\"post\" method=\"{{ url_for('auth.register') }}\">\n-            {{ form.hidden_tag() }} {{ form.csrf_token() }}\n+            {{ form.hidden_tag() }}\n             <div class=\"form-label-wrapper\">\n                 {{ form.email.label (class=\"form-label\")}}\n             </div>\n             <div class=\"form-label-wrapper\">\n"
+                }
+            ],
+            "date": 1635023155228,
+            "name": "Commit-0",
+            "content": "{% extends \"base.html\" %} {% block title %}Register{% endblock %} {% block content %}\n<main class=\"page-center\">\n    <article class=\"sign-up\">\n        <h1 class=\"sign-up__title\">Get started</h1>\n        <p class=\"sign-up__subtitle\">Start creating the best possible user experience for you customers</p>\n        <form class=\"sign-up-form form\" action=\"post\" method=\"{{ url_for('auth.login') }}\">\n            {{ form.csrf_token() }}\n            <div class=\"form-label-wrapper\">\n                {{ form.email.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.email (class=\"form-input\", type=\"email\", placeholder=\"Enter your email\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.username.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.username (class=\"form-input\", type=\"username\", placeholder=\"Enter your username\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.first_name.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.first_name (class=\"form-input\", type=\"first_name\", placeholder=\"Enter your first_name\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.last_name.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.last_name (class=\"form-input\", type=\"last_name\", placeholder=\"Enter your last_name\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.password.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.password (class=\"form-input\", type=\"password\", placeholder=\"Enter your password\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.confirm_password.label (class=\"form-label\")}}\n            </div>\n            <div class=\"form-label-wrapper\">\n                {{ form.confirm_password (class=\"form-input\", type=\"password\", placeholder=\"confirm your password\")}}\n            </div>\n            <div>\n                {{ form.submit(class=\"form-btn primary-default-btn transparent-btn\")}}\n            </div>\n        </form>\n    </article>\n</main>\n{% endblock %}"
+        }
+    ]
+}

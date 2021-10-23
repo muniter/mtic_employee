@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 
 # imports local
 from . import admin
-from .forms import DepartmentForm, EmployeeAssignForm, RoleForm
+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, EmployeeForm
 from .. import db
 from ..models import Department, Employee, Role
 
@@ -35,6 +35,7 @@ def list_departments():
     List all departments
     """
     check_admin()
+    
 
     departments = Department.query.all()
 
@@ -48,6 +49,7 @@ def add_department():
     """
     Add a department to the database
     """
+    
     check_admin()
 
     add_department = True
@@ -81,6 +83,7 @@ def edit_department(id):
     Edit a department
     """
     check_admin()
+    
 
     add_department = False
 
@@ -109,6 +112,7 @@ def delete_department(id):
     Delete a department from the database
     """
     check_admin()
+    
 
     department = Department.query.get_or_404(id)
     db.session.delete(department)
@@ -128,6 +132,7 @@ def delete_department(id):
 @login_required
 def list_roles():
     check_admin()
+    
     """
     List all roles
     """
@@ -142,6 +147,7 @@ def add_role():
     """
     Add a role to the database
     """
+    
     check_admin()
 
     add_role = True
@@ -175,6 +181,7 @@ def edit_role(id):
     Edit a role
     """
     check_admin()
+    
 
     add_role = False
 
@@ -203,6 +210,7 @@ def delete_role(id):
     Delete a role from the database
     """
     check_admin()
+    
 
     role = Role.query.get_or_404(id)
     db.session.delete(role)
@@ -224,11 +232,46 @@ def list_employees():
     List all employees
     """
     check_admin()
+    
 
     employees = Employee.query.all()
     return render_template('admin/employees/employees.html',
                            employees=employees, title='Employees')
 
+@admin.route('/employees/add', methods=['GET', 'POST'])
+@login_required
+def add_employee():
+    """
+    Add a role to the database
+    """
+    
+    check_admin()
+
+    add_employee = True
+
+    form = EmployeeForm()
+    if form.validate_on_submit():
+        employee = Employee(email=form.email.data,
+                    username=form.username.data,
+                    first_name=form.first_name.data,
+                    last_name=form.last_name.data,
+                    password=form.password.data)
+
+        try:
+            # add employee to the database
+            db.session.add(employee)
+            db.session.commit()
+            flash('You have successfully added a new employee.')
+        except:
+            # in case employee username already exists
+            flash('Error: username already exists.')
+
+        # redirect to the roles page
+        return redirect(url_for('admin.list_employees'))
+
+    # load role template
+    return render_template('admin/employees/employee.html', add_employee=add_employee,
+                           form=form, title='Add Employee')
 
 @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -237,6 +280,7 @@ def assign_employee(id):
     Assign a department and a role to an employee
     """
     check_admin()
+    
 
     employee = Employee.query.get_or_404(id)
 
@@ -255,6 +299,6 @@ def assign_employee(id):
         # redirect to the roles page
         return redirect(url_for('admin.list_employees'))
 
-    return render_template('admin/employees/employee.html',
+    return render_template('admin/employees/employe.html',
                            employee=employee, form=form,
                            title='Assign Employee')

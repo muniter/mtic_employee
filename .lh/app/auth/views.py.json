@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1634825000721,
@@ -36,6 +36,14 @@
                 {
                     "date": 1634868400319,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,10 @@\n             \r\n         # redirect to the appropriate dashboard page\r\n             if employee.role_id == 1:\r\n                 return redirect(url_for('home.superadmin_dashboard'))\r\n+            elif employee.role_id == 2:\r\n+                return redirect(url_for('home.admin_dashboard'))\r\n             else:\r\n                 return redirect(url_for('home.dashboard'))\r\n \r\n         # # when login details are incorrect\r\n"
+                },
+                {
+                    "date": 1635023444813,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         db.session.commit()\r\n         flash('You have successfully registered! You may now login.')\r\n \r\n         # redirect to the login page\r\n-        return redirect(url_for('auth.login'))\r\n+        return redirect(url_for('home_admin_dashboard'))\r\n \r\n     # load registration template\r\n     return render_template('auth/register.html', form=form, title='Register')\r\n \r\n"
+                },
+                {
+                    "date": 1635023472161,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n from ..models import Employee\r\n \r\n \r\n @auth.route('/register', methods=['GET', 'POST'])\r\n+@login_required\r\n def register():\r\n     \"\"\"\r\n     Handle requests to the /register route\r\n     Add an employee to the database through the registration form\r\n"
                 }
             ],
             "date": 1634825000721,

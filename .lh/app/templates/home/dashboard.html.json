@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 53,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1634832401515,
@@ -220,6 +220,22 @@
                 {
                     "date": 1634867367497,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -267,9 +267,9 @@\n                 </div>\r\n                 <div class=\"row\">\r\n                     <div class=\"col-lg-9\">\r\n                         <div class=\"users-table table-wrapper chart\">\r\n-                            <table class=\"posts-table\">\r\n+                            <table class=\"posts-table able table-responsive table-hover\">\r\n                                 <thead>\r\n                                     <tr class=\"users-table-info\">\r\n                                         <th>Data</th>\r\n                                         <th>Info</th>\r\n"
+                },
+                {
+                    "date": 1635013633653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -264,8 +264,9 @@\n                             </div>\r\n                         </article>\r\n                     </div>\r\n                 </div>\r\n+                <!-- tabla usuarios -->\r\n                 <div class=\"row\">\r\n                     <div class=\"col-lg-9\">\r\n                         <div class=\"users-table table-wrapper chart\">\r\n                             <table class=\"posts-table able table-responsive table-hover\">\r\n"
+                },
+                {
+                    "date": 1635013682983,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -265,8 +265,9 @@\n                         </article>\r\n                     </div>\r\n                 </div>\r\n                 <!-- tabla usuarios -->\r\n+                { % block tablas usuarios}\r\n                 <div class=\"row\">\r\n                     <div class=\"col-lg-9\">\r\n                         <div class=\"users-table table-wrapper chart\">\r\n                             <table class=\"posts-table able table-responsive table-hover\">\r\n@@ -433,8 +434,9 @@\n                             </ul>\r\n                         </article>\r\n                     </div>\r\n                 </div>\r\n+                {% endblock %}\r\n             </div>\r\n         </main>\r\n         <!-- ! Footer -->\r\n         <footer class=\"footer\">\r\n"
+                },
+                {
+                    "date": 1635013728517,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -265,9 +265,9 @@\n                         </article>\r\n                     </div>\r\n                 </div>\r\n                 <!-- tabla usuarios -->\r\n-                { % block tablas usuarios}\r\n+                { % block tablausers}\r\n                 <div class=\"row\">\r\n                     <div class=\"col-lg-9\">\r\n                         <div class=\"users-table table-wrapper chart\">\r\n                             <table class=\"posts-table able table-responsive table-hover\">\r\n"
+                },
+                {
+                    "date": 1635015978060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -265,9 +265,9 @@\n                         </article>\r\n                     </div>\r\n                 </div>\r\n                 <!-- tabla usuarios -->\r\n-                { % block tablausers}\r\n+\r\n                 <div class=\"row\">\r\n                     <div class=\"col-lg-9\">\r\n                         <div class=\"users-table table-wrapper chart\">\r\n                             <table class=\"posts-table able table-responsive table-hover\">\r\n@@ -434,9 +434,9 @@\n                             </ul>\r\n                         </article>\r\n                     </div>\r\n                 </div>\r\n-                {% endblock %}\r\n+\r\n             </div>\r\n         </main>\r\n         <!-- ! Footer -->\r\n         <footer class=\"footer\">\r\n"
                 }
             ],
             "date": 1634832401515,

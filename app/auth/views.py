@@ -8,6 +8,7 @@ from ..models import Employee
 
 
 @auth.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     """
     Handle requests to the /register route
@@ -27,7 +28,7 @@ def register():
         flash('You have successfully registered! You may now login.')
 
         # redirect to the login page
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('home_admin_dashboard'))
 
     # load registration template
     return render_template('auth/register.html', form=form, title='Register')

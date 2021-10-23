@@ -5,7 +5,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
-from ..models import Department, Role
+from ..models import Department, Role, Employee
 
 class DepartmentForm(FlaskForm):
     """
@@ -33,3 +33,16 @@ class EmployeeAssignForm(FlaskForm):
     role = QuerySelectField(query_factory=lambda: Role.query.all(),
                             get_label="name")
     submit = SubmitField('Submit')
+    
+
+class EmployeeForm(FlaskForm):
+    """
+    Form for admin to add or edit a employee
+    """
+    email = StringField('email', validators=[DataRequired()])
+    username= StringField('username', validators=[DataRequired()])
+    first_name = StringField('first_name', validators=[DataRequired()])
+    last_name = StringField('last_name', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+                            
