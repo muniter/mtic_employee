@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 32,
             "patches": [
                 {
                     "date": 1634834145867,
@@ -96,6 +96,46 @@
                 {
                     "date": 1634917746274,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n # app/home/views.py\r\n \r\n from os import name\r\n-from flask import flash, redirect, render_template, url_for\r\n+from flask import flash, redirect, render_template, url_for, abort\r\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n from app.auth.forms import LoginForm\r\n"
+                },
+                {
+                    "date": 1634924714202,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n from app.auth.forms import LoginForm\r\n+from ..models import Department, Employee, Role\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
+                },
+                {
+                    "date": 1634924854389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,13 @@\n def superadmin_dashboard():\r\n     # prevent non-admins from accessing the page\r\n     if not current_user.role_id == 1:\r\n         abort(403)\r\n+    \r\n+    employees = Employee.query.all()\r\n+    return render_template('home/superadmin_dashboard.html',\r\n+                           employees=employees, title='Employees')\r\n \r\n-    return render_template('home/superadmin_dashboard.html', title=\"Dashboard\")\r\n+    return render_template('', title=\"Dashboard\")\r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1634924860216,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,8 +46,6 @@\n     employees = Employee.query.all()\r\n     return render_template('home/superadmin_dashboard.html',\r\n                            employees=employees, title='Employees')\r\n \r\n-    return render_template('', title=\"Dashboard\")\r\n \r\n \r\n-\r\n"
+                },
+                {
+                    "date": 1634950545222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,8 @@\n         abort(403)\r\n     \r\n     employees = Employee.query.all()\r\n     return render_template('home/superadmin_dashboard.html',\r\n-                           employees=employees, title='Employees')\r\n+                           employees=employees, title='Dashboard')\r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1634950580009,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,10 @@\n     # prevent non-admins from accessing the page\r\n     if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n-    return render_template('home/admin_dashboard.html', title=\"Dashboard\")\r\n+    employees = Employee.query.all()\r\n+    return render_template('home/admin_dashboard.html', employees=employees, title=\"Dashboard\")\r\n \r\n @home.route('/superadmin/dashboard')\r\n @login_required\r\n def superadmin_dashboard():\r\n"
+                },
+                {
+                    "date": 1634950628365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n from flask import flash, redirect, render_template, url_for, abort\r\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n-from app.auth.forms import LoginForm\r\n-from ..models import Department, Employee, Role\r\n+# imports local\r\n+from ..models import Employee\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
+                },
+                {
+                    "date": 1634952103633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n # imports local\r\n-from ..models import Employee\r\n+from ..models import Employee, Department\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
+                },
+                {
+                    "date": 1634952140834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n from flask_wtf import form\r\n \r\n # imports local\r\n from ..models import Employee, Department\r\n+from admin.views import *\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
+                },
+                {
+                    "date": 1634952235900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n from flask_wtf import form\r\n \r\n # imports local\r\n from ..models import Employee, Department\r\n-from admin.views import *\r\n+from . import admin\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
+                },
+                {
+                    "date": 1634952269850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,9 @@\n from flask_login import login_required, current_user\r\n from flask_wtf import form\r\n \r\n # imports local\r\n-from ..models import Employee, Department\r\n-from . import admin\r\n+from ..models import Employee\r\n \r\n from . import home\r\n \r\n @home.route('/')\r\n"
                 }
             ],
             "date": 1634834145867,

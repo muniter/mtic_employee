@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 18,
             "patches": [
                 {
                     "date": 1634868669176,
@@ -60,6 +60,26 @@
                 {
                     "date": 1634917336264,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,16 +13,16 @@\n def check_admin():\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 2:\r\n         abort(403)\r\n \r\n def check_superadmin():\r\n     \"\"\"\r\n     Prevent non-admins from accessing the page\r\n     \"\"\"\r\n-    if not current_user.is_admin:\r\n+    if not current_user.role_id == 1:\r\n         abort(403)\r\n \r\n \r\n # Department Views\r\n"
+                },
+                {
+                    "date": 1634952046602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n def list_departments():\r\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n-    check_admin()\r\n+    check_superadmin()\r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n"
+                },
+                {
+                    "date": 1634953108497,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,15 +25,17 @@\n         abort(403)\r\n \r\n \r\n # Department Views\r\n+\r\n+\r\n @admin.route('/departments', methods=['GET', 'POST'])\r\n @login_required\r\n def list_departments():\r\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n-    check_superadmin()\r\n+    check_admin()\r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n@@ -120,8 +122,9 @@\n \r\n \r\n # Role Views\r\n \r\n+\r\n @admin.route('/roles')\r\n @login_required\r\n def list_roles():\r\n     check_admin()\r\n@@ -131,8 +134,9 @@\n     roles = Role.query.all()\r\n     return render_template('admin/roles/roles.html',\r\n                            roles=roles, title='Roles')\r\n \r\n+\r\n @admin.route('/roles/add', methods=['GET', 'POST'])\r\n @login_required\r\n def add_role():\r\n     \"\"\"\r\n@@ -162,8 +166,9 @@\n     # load role template\r\n     return render_template('admin/roles/role.html', add_role=add_role,\r\n                            form=form, title='Add Role')\r\n \r\n+\r\n @admin.route('/roles/edit/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n def edit_role(id):\r\n     \"\"\"\r\n@@ -189,8 +194,9 @@\n     form.name.data = role.name\r\n     return render_template('admin/roles/role.html', add_role=add_role,\r\n                            form=form, title=\"Edit Role\")\r\n \r\n+\r\n @admin.route('/roles/delete/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n def delete_role(id):\r\n     \"\"\"\r\n@@ -222,8 +228,9 @@\n     employees = Employee.query.all()\r\n     return render_template('admin/employees/employees.html',\r\n                            employees=employees, title='Employees')\r\n \r\n+\r\n @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])\r\n @login_required\r\n def assign_employee(id):\r\n     \"\"\"\r\n"
+                },
+                {
+                    "date": 1634953413918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n def list_departments():\r\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n-    check_admin()\r\n+    check_superadmin()\r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n"
+                },
+                {
+                    "date": 1634953432321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n def list_departments():\r\n     \"\"\"\r\n     List all departments\r\n     \"\"\"\r\n-    check_superadmin()\r\n+    check_admin()\r\n \r\n     departments = Department.query.all()\r\n \r\n     return render_template('admin/departments/departments.html',\r\n"
+                },
+                {
+                    "date": 1634954517603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n from flask_login import current_user, login_required\r\n \r\n # imports local\r\n from . import admin\r\n-from forms import DepartmentForm, EmployeeAssignForm, RoleForm\r\n+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm\r\n from .. import db\r\n from ..models import Department, Employee, Role\r\n \r\n \r\n"
                 }
             ],
             "date": 1634868669176,

@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 
 # imports local
 from . import admin
-from forms import DepartmentForm, EmployeeAssignForm, RoleForm
+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm
 from .. import db
 from ..models import Department, Employee, Role
 
@@ -26,6 +26,8 @@ def check_superadmin():
 
 
 # Department Views
+
+
 @admin.route('/departments', methods=['GET', 'POST'])
 @login_required
 def list_departments():
@@ -121,6 +123,7 @@ def delete_department(id):
 
 # Role Views
 
+
 @admin.route('/roles')
 @login_required
 def list_roles():
@@ -131,6 +134,7 @@ def list_roles():
     roles = Role.query.all()
     return render_template('admin/roles/roles.html',
                            roles=roles, title='Roles')
+
 
 @admin.route('/roles/add', methods=['GET', 'POST'])
 @login_required
@@ -163,6 +167,7 @@ def add_role():
     return render_template('admin/roles/role.html', add_role=add_role,
                            form=form, title='Add Role')
 
+
 @admin.route('/roles/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_role(id):
@@ -189,6 +194,7 @@ def edit_role(id):
     form.name.data = role.name
     return render_template('admin/roles/role.html', add_role=add_role,
                            form=form, title="Edit Role")
+
 
 @admin.route('/roles/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -222,6 +228,7 @@ def list_employees():
     employees = Employee.query.all()
     return render_template('admin/employees/employees.html',
                            employees=employees, title='Employees')
+
 
 @admin.route('/employees/assign/<int:id>', methods=['GET', 'POST'])
 @login_required

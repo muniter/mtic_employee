@@ -5,7 +5,8 @@ from flask import flash, redirect, render_template, url_for, abort
 from flask_login import login_required, current_user
 from flask_wtf import form
 
-from app.auth.forms import LoginForm
+# imports local
+from ..models import Employee
 
 from . import home
 
@@ -33,7 +34,8 @@ def admin_dashboard():
     if not current_user.role_id == 2:
         abort(403)
 
-    return render_template('home/admin_dashboard.html', title="Dashboard")
+    employees = Employee.query.all()
+    return render_template('home/admin_dashboard.html', employees=employees, title="Dashboard")
 
 @home.route('/superadmin/dashboard')
 @login_required
@@ -41,8 +43,10 @@ def superadmin_dashboard():
     # prevent non-admins from accessing the page
     if not current_user.role_id == 1:
         abort(403)
-
-    return render_template('home/superadmin_dashboard.html', title="Dashboard")
+    
+    employees = Employee.query.all()
+    return render_template('home/superadmin_dashboard.html',
+                           employees=employees, title='Dashboard')
 
 
 

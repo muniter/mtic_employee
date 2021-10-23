@@ -1,0 +1,26 @@
+{
+    "sourceFile": "app/admin/__init__.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1634923501627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634952801601,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,5 @@\n+from flask import Blueprint\r\n+\r\n+admin = Blueprint('admin', __name__)\r\n+\r\n+from . import views\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634954359714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,5 @@\n from flask import Blueprint\r\n \r\n admin = Blueprint('admin', __name__)\r\n \r\n-from . import views\n-from flask import Blueprint\r\n-\r\n-admin = Blueprint('admin', __name__)\r\n-\r\n from . import views\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1634923501627,
+            "name": "Commit-0",
+            "content": "from flask import Blueprint\r\n\r\nadmin = Blueprint('admin', __name__)\r\n\r\nfrom . import views"
+        }
+    ]
+}
