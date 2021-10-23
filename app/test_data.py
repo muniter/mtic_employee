@@ -123,14 +123,23 @@ for i in range(1, 20):
         db.session.rollback()
 
 employees = db.session.query(Employee)
+i = 1
 for employee in employees:
+    if i == 1:
+        username = "user"
+        password = "admin"
+    else:
+        username = employee.email
+        password = "password"
+
     for i in range(0, 4):
         report = gen_report(employee)
         db.session.add(report)
 
     user = current_app.appbuilder.sm.add_user(
-        employee.email, employee.first_name, employee.last_name, employee.email, roles["User"], "password"
+        username, employee.first_name, employee.last_name, employee.email, roles["User"], password
     )
     user.employee_id = employee.id
+    i += 1
 
 db.session.commit()
