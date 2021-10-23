@@ -1,25 +1,31 @@
+from flask import g
 from flask_appbuilder import ModelView
 from flask_appbuilder.fieldwidgets import Select2Widget
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
+from .filters import FilterEqualFunctionUser
 
 from . import appbuilder, db
 from .models import Department, JobTitle, Employee, EmployeeReport 
 
 
+def get_user_employee_id():
+    return g.user.employee_id
+
+def get_user():
+    return g.user
+
 def department_query():
     return db.session.query(Department)
 
-
 class EmployeeReportView(ModelView):
+    base_filters = [['employee_id', FilterEqualFunctionUser, get_user_employee_id]]
     datamodel = SQLAInterface(EmployeeReport)
-    # add_columns = ["name"]
-    # edit_columns = ["name"]
-    # show_columns = ["name"]
     list_columns = ["name", "employee"]
 
 
 class EmployeeView(ModelView): 
+    base_filters = [['id', FilterEqualFunctionUser, get_user_employee_id]]
     datamodel = SQLAInterface(Employee)
     list_columns = ["name", "department.name", "jobtitle.name"]
     edit_form_extra_fields = {
@@ -45,7 +51,6 @@ class DepartmentView(ModelView):
 
 db.create_all()
 
-# appbuilder.add_view_no_menu(EmployeeHistoryView, "EmployeeHistoryView")
 appbuilder.add_view(
     EmployeeView, "Employees", icon="fa-folder-open-o", category="Company"
 )

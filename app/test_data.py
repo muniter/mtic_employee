@@ -71,9 +71,13 @@ try:
     db.session.query(EmployeeReport).delete()
     db.session.query(JobTitle).delete()
     db.session.query(Department).delete()
-    # create_admin("admin", "admin", "admin", "admin@admin.com", "admin"):
+    # Super Admin
     user = current_app.appbuilder.sm.add_user(
         "admin", "admin", "admin", "admin@admin.com", roles["Sudo"], "admin"
+    )
+    # Admin
+    user = current_app.appbuilder.sm.add_user(
+        "javier", "Javier", "López", "javier@ibarra.com", roles["Admin"], "admin"
     )
     db.session.commit()
 except Exception:
@@ -127,6 +131,6 @@ for employee in employees:
     user = current_app.appbuilder.sm.add_user(
         employee.email, employee.first_name, employee.last_name, employee.email, roles["User"], "password"
     )
-    employee.user_id = user.id
+    user.employee_id = employee.id
 
 db.session.commit()

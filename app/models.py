@@ -2,6 +2,7 @@ import datetime
 
 from flask_appbuilder import Model
 from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, Float, String, Table, Text, Enum
+from flask_appbuilder.security.sqla.models import User
 # from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
 from .enums import GenderEnum, ContractEnum
@@ -13,7 +14,6 @@ class Record:
 
     def __repr__(self):
         return self.name
-
 
 class Department(Record, Model):
     __tablename__ = "department"
@@ -41,8 +41,6 @@ class Employee(Record, Model):
     department = relationship("Department")
     salary = Column(Float)
     reports = relationship("EmployeeReport", backref="employee")
-    user_id = Column(Integer, ForeignKey("ab_user.id"), nullable=True)
-    user = relationship("User", backref="user")
 
 
 class EmployeeReport(Record, Model):
@@ -50,10 +48,6 @@ class EmployeeReport(Record, Model):
     name = Column(String, unique=False, nullable=False)
     text = Column(Text, nullable=False)
     employee_id = Column(Integer, ForeignKey("employee.id"))
-
-    def __repr__(self):
-        return self.name
-
 
 def today():
     return datetime.datetime.today().strftime("%Y-%m-%d")

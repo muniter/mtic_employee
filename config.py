@@ -20,7 +20,7 @@ AUTH_TYPE = 1
 AUTH_ROLE_ADMIN = "Sudo"
 AUTH_ROLE_PUBLIC = "Public"
 APP_NAME = "MisionTIC Employee"
-USER_MODELS = ["Employee", "EmployeeReport", "Department", "JobTitle"]
+USER_MODELS = ["Employee", "EmployeeReport", "Department", "JobTitle", "MyUserDBView", "Company", "Reset.*Password.*"]
 USER_MODELS_REGEX = f'({"|".join(USER_MODELS)})'
 FAB_ROLES = {
     "User": [
@@ -28,14 +28,15 @@ FAB_ROLES = {
         [USER_MODELS_REGEX, "can_show"],
         [USER_MODELS_REGEX, "menu_access"],
         [USER_MODELS_REGEX, "can_get"],
-        [USER_MODELS_REGEX, "can_info"]
+        [USER_MODELS_REGEX, "can_info"],
+        ["MyUserDBView", "can_userinfo"]
     ],
     "Admin": [
-        [".*", "can_list"],
-        [".*", "can_show"],
-        [".*", "menu_access"],
-        [".*", "can_get"],
-        [".*", "can_info"]
+        ["(?!(.*Permission.*)).*", ".*"],
+        # [".*", "can_show"],
+        # [".*", "menu_access"],
+        # [".*", "can_get"],
+        # [".*", "can_info"]
     ]
 }
 # APP_THEME = ""  # default
