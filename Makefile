@@ -10,3 +10,5 @@ initdata:
 	(source $(PROJECT_BASE)/.venv/bin/activate)
 	rm -rf app.db
 	(FLASK_ENV=development FLASK_APP=app flask initdata)
+
+all: initdb initdata dev-run
