@@ -1,4 +1,4 @@
-from .filters import FilterEqualAdmin
+from flask_appbuilder.models.sqla.filters import FilterEqual, FilterNotStartsWith
 from flask_appbuilder.security.views import UserDBModelView
 
 class MyUserDBModelView(UserDBModelView):
@@ -8,7 +8,8 @@ class MyUserDBModelView(UserDBModelView):
         Then override userdbmodelview property on SecurityManager
     """
 
-    add_form_query_rel_fields = {'role': [['role.name', FilterEqualAdmin, 'User']]}
+    # TODO: This is not working
+    add_form_query_rel_fields = {'role': [['name', FilterNotStartsWith, 'Sudo']]}
     show_fieldsets = [
         ('User info',
          {'fields': ['username', 'active', 'roles', 'login_count', 'employee']}),
@@ -41,7 +42,7 @@ class MyUserDBModelView(UserDBModelView):
         'first_name',
         'last_name',
         'username',
-        'email',
+        'employee',
         'active',
         'roles'
     ]
