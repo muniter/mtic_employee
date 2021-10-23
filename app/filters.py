@@ -15,24 +15,34 @@ def get_admin_role():
         admin_role = current_app.appbuilder.sm.find_role("Admin")
     return admin_role
 
+sudo_role = None
+def get_sudo_role():
+    global sudo_role
+    if sudo_role == None:
+        sudo_role = current_app.appbuilder.sm.find_role("Sudo")
+    return sudo_role
+
+def has_role(user, role):
+ return user.roles[0].id == role.id
+
 class FilterEqualFunctionUser(BaseFilter):
-    name = "Filter view with a function only if role is User"
+    name = "Filter view with a function only if current user role is User"
     arg_name = "eqf"
 
     def apply(self, query, func):
         query, field = get_field_setup_query(query, self.model, self.column_name)
-        if g.user.roles[0].id == get_user_role().id:
+        if has_role(g.user, get_user_role()):
             return query.filter(field == func())
         return query
 
 class FilterEqualAdmin(BaseFilter):
-    name = "Equal to only for Admin"
+    name = "Equal to, only applied if admin role"
     arg_name = "eq"
 
     def apply(self, query, value):
         query, field = get_field_setup_query(query, self.model, self.column_name)
         value = set_value_to_type(self.datamodel, self.column_name, value)
 
-        if g.user.roles[0].id == get_admin_role().id:
+        if has_role(g.user, get_admin_role()):
             return query.filter(field == value)
         return query
