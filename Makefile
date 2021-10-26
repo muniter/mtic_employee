@@ -10,5 +10,11 @@ initdata:
 	(source $(PROJECT_BASE)/.venv/bin/activate)
 	rm -rf app.db
 	(FLASK_ENV=development FLASK_APP=app flask initdata)
+prod-init:
+	rm -rf app.db
+	(flask fab create-db)
+	(flask initdata)
+prod-run:
+	(gunicorn app:app --bind 0.0.0.0:5000)
 
 all: initdb initdata dev-run

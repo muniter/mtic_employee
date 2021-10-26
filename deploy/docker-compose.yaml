@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+  traefik:
+    container_name: traefik
+    image: "traefik:v2.5"
+    restart: unless-stopped
+    env_file: ".env"
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--log.level=INFO"
+      - "--accesslog=true"
+      - "--providers.docker=true"
+      - "--providers.docker.network=web"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.le.acme.email=${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.dnschallenge=true"
+      - "--certificatesresolvers.le.acme.dnschallenge.provider=cloudflare"
+      # For statging certificates e.g testing
+      - "--certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    labels:
+      # enable traefik
+      - "traefik.enable=true"
+      # global redirect to https
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      # middleware redirect for production only
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+  app:
+       build:
+         context: ".."
+         dockerfile: "./deploy/Dockerfile"
+       image: "mtapp:1.0"
+       container_name: mtapp
+       restart: unless-stopped
+       ports:
+        - 5000:5000
+       networks:
+        - web
+       volumes:
+           - app-data:/usr/src/app
+       labels:
+        - "traefik.enable=true"
+          # Web Client
+        - "traefik.http.services.app.loadbalancer.server.port=5000"
+        - "traefik.http.routers.app.service=app"
+        - "traefik.http.routers.app.entrypoints=websecure"
+        - "traefik.http.routers.app.rule=Host(${SITE})"
+        - "traefik.http.routers.app.tls.certresolver=le"
+volumes:
+  app-data:
+networks:
+  web:
