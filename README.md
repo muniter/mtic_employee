@@ -18,6 +18,10 @@ Navergar a `http://localhost:5000/`
 
 ## Deployment
 
-En el folder deploy se encuentra un `docker-compose.yaml` que realiza el deployment completo de la app detrás de traefik como reverse proxy, generando los certificados ssl y proveyendo https automáticamente. Solamente es necesario crear el archivo `~/deploy/.env` como el ejemplo provisto en `deploy/.env-example` y correr `docker-compose -f deploy/docker-compose.yaml up -d` y crear una entrada dns a la ip del servidor (TODO: automate the entry soon).
+### Cualquier cloud server
 
-TODO: Instrucciones de deployment en Heroku.
+En el folder deploy se encuentra un `docker-compose.yaml` que realiza el deployment completo de la app detrás de traefik como reverse proxy, generando los certificados ssl y proveyendo https automáticamente. Solamente es necesario crear el archivo `~/deploy/.env` como el ejemplo provisto en `deploy/.env-example` y correr `docker-compose -f deploy/docker-compose.yaml --env-file deploy/.env up -d` y crear una entrada dns a la ip del servidor (TODO: automate the entry soon).
+
+### Heroku
+
+Build y publish el contenedor `ln -s deploy/Dockerfile ./ && heroku container:push web` luego correlo `heroku container:release web`

@@ -15,6 +15,6 @@ prod-init:
 	(flask fab create-db)
 	(flask initdata)
 prod-run:
-	(gunicorn app:app --bind 0.0.0.0:5000)
+	(gunicorn app:app --bind 0.0.0.0:${PORT})
 
 all: initdb initdata dev-run

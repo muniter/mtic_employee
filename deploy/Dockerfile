@@ -26,7 +26,7 @@ RUN apk add make
 # Copy the rest of the app
 COPY . .
 
-EXPOSE 5000
+EXPOSE $PORT
 ENV FLASK_APP app
 ENV FLASK_RUN_HOST 0.0.0.0
 ENV FLASK_ENV production
