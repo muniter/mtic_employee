@@ -35,8 +35,8 @@ class FilterEqualFunctionUser(BaseFilter):
             return query.filter(field == func())
         return query
 
-class FilterEqualAdmin(BaseFilter):
-    name = "Equal to, only applied if admin role"
+class FilterNotEqualsIfAdmin(BaseFilter):
+    name = "Not equals to, only applied if user has admin role"
     arg_name = "eq"
 
     def apply(self, query, value):
@@ -44,5 +44,5 @@ class FilterEqualAdmin(BaseFilter):
         value = set_value_to_type(self.datamodel, self.column_name, value)
 
         if has_role(g.user, get_admin_role()):
-            return query.filter(field == value)
+            return query.filter(field != value)
         return query
