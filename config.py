@@ -32,11 +32,7 @@ FAB_ROLES = {
         ["MyUserDBView", "can_userinfo"]
     ],
     "Admin": [
-        ["(?!(.*Permission.*)).*", ".*"],
-        # [".*", "can_show"],
-        # [".*", "menu_access"],
-        # [".*", "can_get"],
-        # [".*", "can_info"]
+        ["(?!(.*(Permission|Role).*)).*", ".*"],
     ]
 }
 # APP_THEME = ""  # default
