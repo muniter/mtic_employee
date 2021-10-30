@@ -75,6 +75,7 @@ try:
     user = current_app.appbuilder.sm.add_user(
         "admin", "admin", "admin", "admin@admin.com", roles["Sudo"], "admin"
     )
+    user.is_sudo = True
     # Admin
     user = current_app.appbuilder.sm.add_user(
         "javier", "Javier", "López", "javier@ibarra.com", roles["Admin"], "admin"

@@ -1,7 +1,7 @@
 import datetime
 
 from flask_appbuilder import Model
-from sqlalchemy import Column, Date, ForeignKey, Integer, Float, String, Text, Enum
+from sqlalchemy import Column, Boolean, Date, ForeignKey, Integer, Float, String, Text, Enum
 from flask_appbuilder.security.sqla.models import User
 # from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
@@ -46,6 +46,7 @@ class MyUser(User):
     __tablename__ = "ab_user"
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable=True)
     employee = relationship("Employee", backref="user")
+    is_sudo = Column(Boolean, default=False)
 
 class EmployeeReport(Record, Model):
     __tablename__ = "employeereport"

@@ -1,4 +1,4 @@
-from flask_appbuilder.models.sqla.filters import FilterRelationManyToManyEqual, FilterRelationOneToManyNotEqual
+from flask_appbuilder.models.sqla.filters import FilterEqual, FilterNotEqual
 from .filters import FilterNotEqualsIfAdmin
 from flask_appbuilder.security.views import UserDBModelView
 
@@ -9,7 +9,7 @@ class MyUserDBModelView(UserDBModelView):
         Then override userdbmodelview property on SecurityManager
     """
 
-    # base_filters = [['roles', FilterRelationManyToManyEqual, 1]]
+    base_filters = [['is_sudo', FilterNotEqualsIfAdmin, True]]
     add_form_query_rel_fields = {'roles': [['name', FilterNotEqualsIfAdmin, 'Sudo']]}
     edit_form_query_rel_fields = add_form_query_rel_fields
     show_fieldsets = [
