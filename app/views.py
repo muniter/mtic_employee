@@ -28,13 +28,6 @@ class EmployeeView(ModelView):
     base_filters = [['id', FilterEqualFunctionUser, get_user_employee_id]]
     datamodel = SQLAInterface(Employee)
     list_columns = ["name", "department.name", "jobtitle.name"]
-    edit_form_extra_fields = {
-        "department": QuerySelectField(
-            "Department",
-            query_factory=department_query,
-            widget=Select2Widget(extra_classes="readonly"),
-        )
-    }
     related_views = [EmployeeReportView]
 
 
